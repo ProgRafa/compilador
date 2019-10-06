@@ -2,6 +2,9 @@ from Reader import *
 from AFD import *
 from SymbolTable import *
 from Token import *
+import sys
+import copy
+
 
 class Compiler:
     def __init__(self, archive):
@@ -21,61 +24,63 @@ class Compiler:
 
     # Percorre os AFDs para validar uma entrada
     def find_token(self, p_word):
-        token = Token('#ERROR', p_word, self.row, self.col)
+        c_row = copy.copy(self.row)
+        c_col = copy.copy(self.col)
+        token = Token('#ERROR', p_word, c_row, c_col)
         for lex in self.lexers:
             if lex[1].testing(list(p_word)):
                 token = lex[0]
                 token.lex = p_word
-                token.row = self.row
-                token.colunm = self.col
+                token.row = c_row
+                token.colunm = c_col
                 break
         return token
 
     def parse(self):
         while self.reader.end_of_archive():
-            #pede um caracter do buffer
+            # pede um caracter do buffer
             char = self.reader.pull_buffer()
-            #remove espaços em branco mas conta como coluna
+            # remove espaços em branco mas conta como coluna
             if char == ' ':
                 self.col += 1
                 continue
+            # identifica o tab e conta como 4 colunas
             if char == '\t':
                 self.col += 4
                 continue
-            #identifica quebra de linha, acrescenta a linha e zera a coluna
+            # identifica quebra de linha, acrescenta a linha e zera a coluna
             if char == '\n':
                 self.row += 1
-                self.col = 0
+                self.col = 1
                 continue
             # testa os tokens usando o carcter char que veio do buffer
             test_char = self.find_token(char)
 
-            #caso não seja um erro ou um identificador grave o Token
-            if test_char.type != '#ERROR' and test_char.type != '#IDENTIFIER' and test_char.type != '#NUMBER':
+            # identifica que o char é um token, grava a word anterior ao char como identificador
+            if test_char.type != '#ERROR' and test_char.type != '#IDENTIFIER':
                 if self.word != '':
-                    self.tokens.append(self.find_token(self.word))
-                    self.find_token(word).to_string()
+                    self.tokens.append(copy.copy(self.find_token(self.word)))
                     self.col += len(self.word)
                     self.word = ''
-                    test_char.colunm = self.col
-                    test_char.to_string()
-                    self.tokens.append(test_char)
-                else:
-                    self.tokens.append(test_char)
-                    test_char.to_string()
-                self.col += 1
-                continue
             self.word += char
             test_word = self.find_token(self.word)
             
             if test_word.type != '#ERROR' and test_word.type != '#IDENTIFIER':
-                self.tokens.append(test_word)
-                test_word.to_string()
+                self.tokens.append(copy.copy(test_word))
                 self.col += len(self.word)
                 self.word = ''
-        
+            
+# remover o nome do arquivo dos argumentos        
+sys.argv.pop(0)
+arguments = sys.argv
+archive = './archives/'
+if len(arguments) > 0:
+    archive += arguments[0]
+else:
+    archive += 'BinarySearch.java'
 
-compile = Compiler('./archives/Factorial.java')
+print("Analisando o programa", archive)
+compile = Compiler(archive)
 compile.init_afds()
 compile.parse()
 
