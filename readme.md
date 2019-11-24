@@ -21,12 +21,26 @@ Ao rodar o comando o projeto realizara o parse do arquivo
 e exibirá uma lista de tokens.
 
 Arquivo SymbolTable.py:
-    Usado para organizar todos os símbolos da linguagem assim como
-    as regras que irão gerar os afds.
+    Usado para organizar todos os símbolos, escopos e tipos dinâmicos da linguagem.
 
-Arquivo AFD.py:
+Arquivo Lex.py:
     Contém a classe que da origem ao objeto afd, este objeto valida, 
     ou não, se um caracter ou um agrupamento deles pertencem ao afd.
+
+Arquivo LexRules.py:
+    Contém as regras dos lexemas da gramática.
+
+Arquivo SyntaticRules.py:
+    Contém as regras sintáticas da gramática.
+
+Arquivo SyntaticParser.py:
+    Guarga a lógica necessária para realizar a análise sintática da gramática.
+
+Arquivo MegaAutomato.py:
+    Estrutura que gerência a lista de afnds sintáticos da gramática.
+
+Arquivo AFND.py:
+    Monta o automato não determinístico.
 
 Arquivo Reader.py:
     Contém a classe que dado uma string busca abrir o respectivo arquivo

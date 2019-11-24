@@ -1,5 +1,5 @@
 
-TABLE = [
+LEX_RULES = [
     # Lexema : Símbolo, Automato : {estados, gramatica, regras}
     {
         "class" : "#CLASS", 

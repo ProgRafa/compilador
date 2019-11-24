@@ -1,4 +1,4 @@
-class AFD:
+class Lex:
     def __init__(self, afd): 
         self.states = afd['states']
         self.rules = afd['rules']

@@ -1,0 +1,34 @@
+Features implementadas da gramática Minijava
+Usar arquivo gb.java
+
+Declaração de Classe
+<class> <Identificador> <{>?
+
+Declaração de método
+<public> <static>? <type> <identificador> <()> <{>?
+<type> := <void> | <int>
+
+Declaração de variavel
+<identificador> | <int> <identificador> <=> <instancia> | <numero> | <identificador> <;>
+<instancia> := <new> <identificador> <()>
+<numero> := 0..9
+
+Execução de método de uma Classe
+<identificador> <dot> <identificador> <()>
+<dot> := .
+
+Variavel recebendo valor
+<identificador> <aritmetica> <igualdade> <numero> | <identificador>
+<aritmetica> := <*> | <+> | <->
+<igualdade> := <=>
+<numero> := 0..9
+
+Retorno de método
+<retorno> <identificador> <;>
+
+For loop
+<for> <(> <int> <identificador> <igualdade> <numero> <;> <identificador> <maior> <numero> <;> <identificador> <menos> <menos> <;> <)> <{> ?
+<numero> := 0..9
+<igualdade> := <=>
+<maior> := < > >
+<menos> := <->
