@@ -25,10 +25,14 @@ SYNTATIC_RULES = [
                 "B" : { "#STATIC" : ["C"] },
                 "C" : { "#VOID #INTEGER" : ["D"] },
                 "D" : { "#IDENTIFIER" : ["E"] },
-                "E" : { "#PARENTHESISOPEN" : ["F"] },
+                "E" : { "#PARENTHESISOPEN" : ["F", "I"] },
                 "F" : { "#PARENTHESISCLOSE" : ["G", "H"] },
                 "G" : { "#START" : ["H"] },
-                "H" : { " " : "H" }
+                "H" : { " " : "H" },
+                "I" : { "#STRING" : "J" },
+                "J" : { "#ARRAYOPEN" : "K" },
+                "K" : { "#ARRAYCLOSE" : "L"},
+                "L" : { "#IDENTIFIER" : "F"},
             }
         },
     },
@@ -38,9 +42,10 @@ SYNTATIC_RULES = [
         "AFD" : { 
             "states" : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'J'],
             "grammar" : ['#IDENTIFIER', '#INTEGER', '#EQUALS', '#NUMBER', 
-                         '#NEW', '#PARENTHESISOPEN', '#PARENTHESISCLOSE', '#STRUCTIONEND'],
+                         '#NEW', '#PARENTHESISOPEN', '#PARENTHESISCLOSE', 
+                         '#STRUCTIONEND', '#SUM'],
             "rules" : {
-                "A" : { "#IDENTIFIER #INTEGER" : ["B"] },
+                "A" : { "#IDENTIFIER #INTEGER #STRING" : ["B"] },
                 "B" : { "#IDENTIFIER" : ["C", "I"] },
                 "C" : { "#EQUALS" : ["D", "E", "K"] },
                 "D" : { "#IDENTIFIER" : ["I"] },
@@ -50,7 +55,8 @@ SYNTATIC_RULES = [
                 "H" : { "#PARENTHESISCLOSE" : ["I"] },
                 "I" : { "#STRUCTIONEND" : ["J"] },
                 "J" : { " " : ["J"] },
-                "K" : { "#NUMBER" : ["K", "I"] }
+                "K" : { "#NUMBER" : ["K", "I", "L"] },
+                "L" : { "#SUM" : ["D"] }
             }
         },
     },
@@ -64,11 +70,12 @@ SYNTATIC_RULES = [
             "rules" : {
                 "A" : { "#IDENTIFIER" : ["B"] },
                 "B" : { "#POINT" : ["C"] },
-                "C" : { "#IDENTIFIER" : ["D"] },
-                "D" : { "#PARENTHESISOPEN" : ["E"] },
-                "E" : { "#PARENTHESISCLOSE" : ["F"] },
+                "C" : { "#IDENTIFIER" : ["D", "B"] },
+                "D" : { "#PARENTHESISOPEN" : ["E", "H"] },
+                "E" : { "#PARENTHESISCLOSE" : ["F", "E"] },
                 "F" : { "#STRUCTIONEND" : ["G"] },
-                "G" : { " " : ["G"] }
+                "G" : { " " : ["G"] },
+                "H" : { "#IDENTIFIER" : ["D"] }
             }
         },
     },

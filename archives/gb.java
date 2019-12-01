@@ -1,24 +1,15 @@
-class Factorial
+class Add 
 {
-    public static void main()
+    public static void main(String[] a)
     {
-	    Fac fac = new Fac()
-        fac.ComputeFac();
+        System.out.println(sum());
+        
     }
-}
 
-class Fac 
-{
-    public int ComputeFac()
+    public int sum() 
     {
-        int num = 10;
-        int fac = num;
-        
-        for(int aux = 9; aux > 0; aux--)
-        {
-            fac *= aux;  
-        }
-        
-        return num_aux;
+        int x = 3;
+        int result = 1366 + x;
+        return result;
     }
 }

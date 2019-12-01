@@ -13,8 +13,10 @@ LinearSearch.java
 LinkedList.java
 QuickSort.java
 TreeVisitor.java
+gb.java
+gb++.java
 
-Para adicionar mais arquivos basta incluí-lo dentro da pasta
+Para adicionar mais arquivos basta incluí-los dentro da pasta
 archives.
 
 Ao rodar o comando o projeto realizara o parse do arquivo
@@ -34,7 +36,8 @@ Arquivo SyntaticRules.py:
     Contém as regras sintáticas da gramática.
 
 Arquivo SyntaticParser.py:
-    Guarga a lógica necessária para realizar a análise sintática da gramática.
+    Guarga a lógica necessária para realizar a análise sintática e semântica da gramática.
+    Regras semânticas tipo de dado da variavel e scopo da variável.
 
 Arquivo MegaAutomato.py:
     Estrutura que gerência a lista de afnds sintáticos da gramática.

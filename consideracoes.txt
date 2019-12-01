@@ -1,5 +1,5 @@
 Features implementadas da gramática Minijava
-Usar arquivo gb.java
+Usar arquivo gb.java ou gb++.java
 
 Declaração de Classe
 <class> <Identificador> <{>?

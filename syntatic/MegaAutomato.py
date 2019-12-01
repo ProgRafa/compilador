@@ -13,7 +13,6 @@ class MegaAutomato:
     def find_rule(self, pattern):
         rule = None
         for afnd in self.afnd_list:
-            # print(afnd[0], ' - ', afnd[1].testing2(copy.copy(pattern), None))
             if afnd[1].testing2(copy.copy(pattern), None):
                 rule = afnd[0]
                 break

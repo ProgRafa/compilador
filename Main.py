@@ -63,6 +63,12 @@ class Compiler:
             # testa os tokens usando o carcter char que veio do buffer
             test_char = self.find_token(char)
 
+            if test_char.type == '#ERROR':
+                print("Erro LÉXICO na linha", test_char.row, \
+                          "coluna", test_char.colunm, \
+                          "\nInstrução :", *test_char.lex)
+                return None
+
             # identifica que o char é um token, grava a word anterior ao char como identificador
             if test_char.type != '#ERROR' and test_char.type != '#IDENTIFIER':
                 if self.word != '':
@@ -90,14 +96,14 @@ class Compiler:
             sentence.append(token.type)
             new_token = copy.copy(self.tokens.pop(0))
             if (token.row != new_token.row) or not self.tokens:
-                instruction = syntatic.analyze(sentence)
+                instruction = syntatic.analyze(sentence, sentence_lex)
 
                 if instruction:
                     self.instructions.append(instruction)
                 else:
                     print("Erro sintático na linha", initial_token.row, \
                           "coluna", initial_token.colunm, \
-                          "\nInstrunção :", *sentence_lex)
+                          "\nInstrução :", *sentence_lex)
                     return None
 
                 sentence.clear()
